@@ -34,4 +34,12 @@ public class ProductController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<Product> addProduct(@RequestBody Product product){
+        return productRepository.save(product);
+    }
+
+
 }
