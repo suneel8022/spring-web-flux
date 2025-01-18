@@ -26,4 +26,12 @@ public class ProductController {
         return productRepository.findAll();
     }
 
+    @GetMapping("{id}")
+    public Mono<ResponseEntity<Product>> getProduct(@PathVariable String id){
+        return productRepository.findById(id)
+//                .map(product -> ResponseEntity.ok(product))
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
 }
