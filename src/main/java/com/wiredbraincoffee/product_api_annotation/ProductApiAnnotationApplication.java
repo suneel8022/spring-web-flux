@@ -21,7 +21,7 @@ public class ProductApiAnnotationApplication {
 		return args -> {
 			Flux<Product> productFlux = Flux.just(
 					new Product(null,"Big Latte", 99.9),
-					new Product(null,"Espresso", 59.9),
+					new Product(null,"Espresso", 79.9),
 					new Product(null,"Green Tea", 59.9)
 			)
 //					.flatMap(product -> productRepository.save(product))
