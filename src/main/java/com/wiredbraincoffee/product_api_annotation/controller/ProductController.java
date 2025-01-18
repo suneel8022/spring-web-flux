@@ -42,4 +42,18 @@ public class ProductController {
     }
 
 
+    @PutMapping("{id}")
+    public Mono<ResponseEntity<Product>> updateProduct(@PathVariable(value = "id") String id,
+                                                       @RequestBody Product product){
+        return productRepository
+                .findById(id)
+                .flatMap(existingProduct -> {
+                    existingProduct.setName(product.getName());
+                    existingProduct.setPrice(product.getPrice());
+                    return productRepository.save(existingProduct);
+                })
+                .map(updateProduct -> ResponseEntity.ok(updateProduct))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+                // an if-else statement in a declarative style
+    }
 }
