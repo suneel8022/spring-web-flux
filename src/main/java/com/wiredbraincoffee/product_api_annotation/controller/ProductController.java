@@ -56,4 +56,16 @@ public class ProductController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
                 // an if-else statement in a declarative style
     }
+
+
+    @DeleteMapping("{id}")
+    public Mono<ResponseEntity<Void>> deleteProduct(@PathVariable(value = "id") String id){
+        return productRepository
+                .findById(id)
+                .flatMap(existingProduct ->
+                        productRepository.delete(existingProduct)
+                                .then(Mono.just(ResponseEntity.ok().<Void>build()))
+                )
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
 }
